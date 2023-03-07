@@ -12,29 +12,35 @@
 #include <zephyr/shell/shell.h>
 #include <zephyr/types.h>
 
-#define INTERVAL_MIN 0x140 /* 320 units, 400 ms */
-#define INTERVAL_MAX 0x140 /* 320 units, 400 ms */
+#define INTERVAL_MIN 0x00c /* 320 units, 400 ms */
+#define INTERVAL_MAX 0x00c /* 320 units, 400 ms */
 #define CONN_LATENCY 0
 
 #define MIN_CONN_INTERVAL   6
 #define MAX_CONN_INTERVAL   3200
-#define SUPERVISION_TIMEOUT 1000
+#define SUPERVISION_TIMEOUT 100
 
 static struct test_params {
 	struct bt_le_conn_param *conn_param;
 	struct bt_conn_le_phy_param *phy;
 	struct bt_conn_le_data_len_param *data_len;
 } test_params = {
-	.conn_param = BT_LE_CONN_PARAM(INTERVAL_MIN, INTERVAL_MAX, CONN_LATENCY,
-				       SUPERVISION_TIMEOUT),
+	.conn_param = 
+    BT_LE_CONN_PARAM(
+      INTERVAL_MIN, 
+      INTERVAL_MAX, 
+      CONN_LATENCY,
+			SUPERVISION_TIMEOUT),
 	.phy = BT_CONN_LE_PHY_PARAM_2M,
 	.data_len = BT_LE_DATA_LEN_PARAM_MAX
 };
 
-extern int test_run(const struct shell *shell,
-		    const struct bt_le_conn_param *conn_param,
-		    const struct bt_conn_le_phy_param *phy,
-		    const struct bt_conn_le_data_len_param *data_len);
+extern int test_run(
+  const struct shell *shell,
+  const struct bt_le_conn_param *conn_param,
+  const struct bt_conn_le_phy_param *phy,
+  const struct bt_conn_le_data_len_param *data_len
+);
 
 static const char *phy_str(const struct bt_conn_le_phy_param *phy)
 {
@@ -65,9 +71,11 @@ static const char *phy_str(const struct bt_conn_le_phy_param *phy)
 	}
 }
 
-static int default_cmd(const struct shell *shell, size_t argc,
-		       char **argv)
-{
+static int default_cmd(
+  const struct shell *shell, 
+  size_t argc,
+  char **argv
+){
 	if (argc == 1) {
 		shell_help(shell);
 		return SHELL_CMD_HELP_PRINTED;
@@ -86,9 +94,11 @@ static int default_cmd(const struct shell *shell, size_t argc,
 	return 0;
 }
 
-static int cmd_phy_1m(const struct shell *shell, size_t argc,
-		      char **argv)
-{
+static int cmd_phy_1m(
+  const struct shell *shell, 
+  size_t argc,
+	char **argv
+){
 	test_params.phy->options = BT_CONN_LE_PHY_OPT_NONE;
 	test_params.phy->pref_rx_phy = BT_GAP_LE_PHY_1M;
 	test_params.phy->pref_tx_phy = BT_GAP_LE_PHY_1M;
@@ -216,9 +226,11 @@ static int conn_interval_cmd(const struct shell *shell, size_t argc,
 	return 0;
 }
 
-static int print_cmd(const struct shell *shell, size_t argc,
-		     char **argv)
-{
+static int print_cmd(
+  const struct shell *shell, 
+  size_t argc,
+	char **argv
+){
 	shell_print(shell, "==== Current test configuration ====\n");
 	shell_print(shell, "Data length:\t\t%d\n"
 		    "Connection interval:\t%d units\n"
@@ -254,10 +266,16 @@ SHELL_STATIC_SUBCMD_SET_CREATE(sub_config,
 );
 
 
-static int test_run_cmd(const struct shell *shell, size_t argc,
-			char **argv)
-{
-	return test_run(shell, test_params.conn_param, test_params.phy,
+static int test_run_cmd(
+  const struct shell *shell, 
+  size_t argc,
+	char **argv
+){
+	return 
+    test_run(
+      shell, 
+      test_params.conn_param, 
+      test_params.phy,
 			test_params.data_len);
 }
 
