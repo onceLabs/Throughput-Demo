@@ -17,7 +17,7 @@
 
 #include <zephyr/logging/log.h>
 
-LOG_MODULE_REGISTER(bt_throughput, CONFIG_BT_THROUGHPUT_LOG_LEVEL);
+LOG_MODULE_REGISTER(bt_throughput, 3);
 
 static K_SEM_DEFINE(indicate_sem, 0, 1);
 
