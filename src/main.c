@@ -18,11 +18,11 @@
 #include <zephyr/bluetooth/gatt.h>
 #include <zephyr/bluetooth/hci.h>
 #include <zephyr/bluetooth/uuid.h>
-#include <bluetooth/hci_vs.h>
+#include <zephyr/bluetooth/hci_vs.h>
 
 #include "throughput_demo.h"
 #include <bluetooth/scan.h>
-#include <bluetooth/conn.h>
+#include <zephyr/bluetooth/conn.h>
 #include <bluetooth/gatt_dm.h>
 #include <zephyr/bluetooth/l2cap.h>
 #include <zephyr/shell/shell_uart.h>
